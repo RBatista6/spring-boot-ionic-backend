@@ -18,20 +18,20 @@ import javax.persistence.OneToMany;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Produto implements Serializable {
+public class Produto  implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
-	private Double preço;
+	private Double preco;
 	
 	@JsonIgnore
 	@ManyToMany
-	@JoinTable(name="PRODUTO_CATEGORIA",
+	@JoinTable(name = "PRODUTO_CATEGORIA",
 		joinColumns = @JoinColumn(name = "produto_id"),
-		inverseJoinColumns = @JoinColumn(name= "categoria_id")
+		inverseJoinColumns = @JoinColumn(name = "categoria_id")
 	)
 	private List<Categoria> categorias = new ArrayList<>();
 	
@@ -40,26 +40,25 @@ public class Produto implements Serializable {
 	private Set<ItemPedido> itens = new HashSet<>();
 	
 	public Produto() {
-		
 	}
 
-	public Produto(Integer id, String nome, Double preço) {
+	public Produto(Integer id, String nome, Double preco) {
 		super();
 		this.id = id;
 		this.nome = nome;
-		this.preço = preço;
+		this.preco = preco;
 	}
-	
+
 	@JsonIgnore
-	public List<Pedido> getPedidos(){
+	public List<Pedido> getPedidos() {
 		List<Pedido> lista = new ArrayList<>();
-		for(ItemPedido x: itens) {
+		for (ItemPedido x : itens) {
 			lista.add(x.getPedido());
 		}
-		return lista; 
+		return lista;
 	}
 	
-
+	
 	public Integer getId() {
 		return id;
 	}
@@ -76,12 +75,12 @@ public class Produto implements Serializable {
 		this.nome = nome;
 	}
 
-	public Double getPreço() {
-		return preço;
+	public Double getPreco() {
+		return preco;
 	}
 
-	public void setPreço(Double preço) {
-		this.preço = preço;
+	public void setPreco(Double preco) {
+		this.preco = preco;
 	}
 
 	public List<Categoria> getCategorias() {
@@ -92,6 +91,14 @@ public class Produto implements Serializable {
 		this.categorias = categorias;
 	}
 
+	public Set<ItemPedido> getItens() {
+		return itens;
+	}
+
+	public void setItens(Set<ItemPedido> itens) {
+		this.itens = itens;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -116,13 +123,6 @@ public class Produto implements Serializable {
 			return false;
 		return true;
 	}
-
-	public Set<ItemPedido> getItens() {
-		return itens;
-	}
-
-	public void setItens(Set<ItemPedido> itens) {
-		this.itens = itens;
-	}
 	
+
 }
